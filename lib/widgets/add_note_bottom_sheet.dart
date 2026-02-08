@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:notes_app/shared/custom_text.dart';
-
 import 'custom_button.dart';
 import 'custom_text_field.dart';
 
