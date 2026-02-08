@@ -12,13 +12,13 @@ class NotesViewBody extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 50),
-          CustomAppBar(),
+          CustomAppBar(text: 'Notes',icon: Icons.search,),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.only(top: 12),
-                itemCount: 10,
+                itemCount: 4,
                 itemBuilder: (context, index){
-              return Padding(
+              return  Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: NoteItem(),
               );

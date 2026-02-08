@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/shared/custom_text.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.text, required this.icon});
+  final String text;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CustomText(text: 'Notes',fontSize: 28,),
+        CustomText(text: text,fontSize: 28,),
         Container(
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.08),
+            color: Colors.white.withOpacity(.1),
             borderRadius: BorderRadius.circular(18),
           ),
-          child: Icon(Icons.search, color: Colors.white, size: 35),
+          child: Icon(icon, color: Colors.white, size: 35),
         ),
       ],
     );
