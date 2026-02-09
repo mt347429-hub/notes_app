@@ -43,9 +43,11 @@ class _AddNoteFormState extends State<AddNoteForm> {
           SizedBox(height: 32),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
+              bool isLoading = state is AddNoteLoading;
               return CustomButton(
-                isLoading: state is AddNoteLoading ? true:false,
-                onTap:() {
+                isLoading: isLoading,
+                onTap: isLoading?null
+                  :() {
                   if (key.currentState!.validate()) {
                     key.currentState!.save();
                     var note = NoteModel(title: title!,
