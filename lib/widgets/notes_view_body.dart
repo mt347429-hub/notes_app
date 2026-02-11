@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/get_notes/get_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/shared/custom_text.dart';
 import 'custom_appbar.dart';
 import 'note_item.dart';
 
@@ -35,7 +36,9 @@ class _NotesViewBodyState extends State<NotesViewBody> {
             child: BlocBuilder<GetNoteCubit, GetNoteState>(
               builder: (context, state) {
                 List <NoteModel> notes=BlocProvider.of<GetNoteCubit>(context).notes!;
-                return ListView.builder(
+                return notes.isEmpty? Center(
+                  child: CustomText(text: 'No notes to display',fontSize: 24,),
+                ): ListView.builder(
                   padding: EdgeInsets.only(top: 12),
                   itemCount: notes.length,
                   itemBuilder: (context, index) {
