@@ -7,16 +7,16 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.text,
     required this.icon,
-    this.onTap,
-    required this.isTextFormField,
+    this.onPressed,
     this.controller,
+    this.onChanged
   });
 
   final String text;
   final IconData icon;
-  final void Function()? onTap;
-  final bool isTextFormField;
+  final void Function()? onPressed;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class CustomAppBar extends StatelessWidget {
       children: [
         CustomText(text: text, fontSize: 28),
         const SizedBox(width: 16),
-        if (isTextFormField)
           Expanded(
             child: TextFormField(
+              onChanged: onChanged ,
               controller: controller,
               decoration: InputDecoration(
-                suffixIcon: Icon(icon),
+                suffixIcon:IconButton(onPressed: onPressed, icon: Icon(icon)),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -48,21 +48,6 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
           )
-        else ...[
-          const Spacer(),
-          GestureDetector(
-            onTap: onTap,
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(.1),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Icon(icon, color: Colors.white, size: 28),
-            ),
-          ),
-        ],
       ],
     );
   }

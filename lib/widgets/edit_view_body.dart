@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/get_notes/get_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/widgets/custom_container.dart';
 import 'package:notes_app/widgets/custom_text_field.dart';
-
-import 'custom_appbar.dart';
 
 class EditViewBody extends StatefulWidget {
   const EditViewBody({super.key, required this.note});
@@ -25,11 +24,9 @@ class _EditViewBodyState extends State<EditViewBody> {
       child: Column(
         children: [
           SizedBox(height: 50),
-          CustomAppBar(
-            isTextFormField: false,
-            text: 'Edit Note',
+          CustomContainer(
             icon: Icons.check,
-            onTap: () {
+            onPressed: () {
               widget.note.title = title ?? widget.note.title;
               widget.note.subtitle = subTitle ?? widget.note.subtitle;
               Navigator.pop(context);
