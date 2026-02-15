@@ -18,7 +18,7 @@ class NoteItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return EditView(note: note,);
+              return EditView(note: note);
             },
           ),
         );
@@ -94,6 +94,7 @@ class NoteItem extends StatelessWidget {
                   color: Colors.black.withOpacity(.4),
                 ),
               ),
+
             ],
           ),
         ),

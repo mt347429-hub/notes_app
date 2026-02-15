@@ -31,7 +31,12 @@ class _NotesViewBodyState extends State<NotesViewBody> {
       child: Column(
         children: [
           SizedBox(height: 50),
-          CustomAppBar(text: 'Notes', icon: Icons.search),
+          CustomAppBar(
+            isTextFormField: true,
+              text: 'Notes',
+              icon: Icons.search,
+
+          ),
           Expanded(
             child: BlocBuilder<GetNoteCubit, GetNoteState>(
               builder: (context, state) {

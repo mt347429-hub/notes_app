@@ -26,6 +26,7 @@ class _EditViewBodyState extends State<EditViewBody> {
         children: [
           SizedBox(height: 50),
           CustomAppBar(
+            isTextFormField: false,
             text: 'Edit Note',
             icon: Icons.check,
             onTap: () {
