@@ -11,17 +11,21 @@ class NotesViewBody extends StatefulWidget {
 
   @override
   State<NotesViewBody> createState() => _NotesViewBodyState();
-
-
-
 }
 
 class _NotesViewBodyState extends State<NotesViewBody> {
-  @override
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
-    BlocProvider.of<GetNoteCubit>(context).getAllNote();
     super.initState();
+    BlocProvider.of<GetNoteCubit>(context).getAllNote();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchController.dispose();
   }
 
   @override
@@ -31,30 +35,52 @@ class _NotesViewBodyState extends State<NotesViewBody> {
       child: Column(
         children: [
           SizedBox(height: 50),
-          CustomAppBar(
-            isTextFormField: true,
-              text: 'Notes',
-              icon: Icons.search,
-
+          BlocBuilder<GetNoteCubit, GetNoteState>(
+            builder: (context, state) {
+              bool isSearching = false;
+              if (state is GetNoteSuccess) {
+                isSearching = state.isSearching;
+              }
+              return CustomAppBar(
+                controller: searchController,
+                text: 'Notes',
+                icon: isSearching ? Icons.clear : Icons.search,
+                onPressed: () {
+                  if (isSearching) {
+                    searchController.clear();
+                    context.read<GetNoteCubit>().searchFunction('');
+                  }
+                },
+                onChanged: (value) {
+                  context.read<GetNoteCubit>().searchFunction(value);
+                },
+              );
+            },
           ),
           Expanded(
             child: BlocBuilder<GetNoteCubit, GetNoteState>(
               builder: (context, state) {
-                List <NoteModel> notes=BlocProvider.of<GetNoteCubit>(context).notes!;
-                return notes.isEmpty? Center(
-                  child: CustomText(text: 'No notes to display',fontSize: 24,),
-                ): ListView.builder(
-                  padding: EdgeInsets.only(top: 12),
-                  itemCount: notes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6.0),
-                      child: NoteItem(
-                        note: notes[index],
-                      ),
-                    );
-                  },
-                );
+                List<NoteModel> notes = [];
+                if (state is GetNoteSuccess) {
+                  notes = state.notes;
+                }
+                return notes.isEmpty
+                    ? Center(
+                        child: CustomText(
+                          text: 'No notes to display',
+                          fontSize: 24,
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: EdgeInsets.only(top: 12),
+                        itemCount: notes.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
+                            child: NoteItem(note: notes[index]),
+                          );
+                        },
+                      );
               },
             ),
           ),
