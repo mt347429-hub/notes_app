@@ -19,30 +19,28 @@ class FavouriteNotes extends StatelessWidget {
       body: BlocBuilder<GetNoteCubit, GetNoteState>(
         builder: (context, state) {
           List<NoteModel> favNotes = [];
-          if(state is GetNoteSuccess){
-            favNotes=state.notes.where((n) => n.isFavourite).toList();
+          if (state is GetNoteSuccess) {
+            favNotes = state.notes.where((n) => n.isFavourite).toList();
           }
-          if(favNotes.isEmpty){
-            return Center(child: Text('No Favourites yet!',style: TextStyle(
-              fontSize: 24
-            ),),);
+          if (favNotes.isEmpty) {
+            return Center(
+              child: Text('No Favourites yet!', style: TextStyle(fontSize: 24)),
+            );
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: ListView.builder(
-            itemCount: favNotes.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 12.0),
-                    child: NoteItem(note: favNotes[index]),
-                  );
-                },
+            child: ListView.builder(
+              itemCount: favNotes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: NoteItem(note: favNotes[index]),
+                );
+              },
             ),
           );
         },
       ),
-
-
     );
   }
 }
