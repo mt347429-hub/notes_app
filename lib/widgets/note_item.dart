@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/get_notes/get_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_view.dart';
-
 import '../shared/custom_text.dart';
 
 class NoteItem extends StatelessWidget {
@@ -94,7 +93,19 @@ class NoteItem extends StatelessWidget {
                   color: Colors.black.withOpacity(.4),
                 ),
               ),
-
+              GestureDetector(
+                onTap: () {
+                  BlocProvider.of<GetNoteCubit>(context).toggleFavourite(note);
+                },
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Icon(
+                    note.isFavourite ? Icons.favorite : Icons.favorite_border,
+                    color: note.isFavourite ? Colors.red : Colors.grey,
+                    size: 30,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
