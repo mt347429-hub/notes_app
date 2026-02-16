@@ -27,5 +27,13 @@ class GetNoteCubit extends Cubit<GetNoteState> {
       }).toList();
     }
     emit(GetNoteSuccess(notes: filteredNotes, isSearching: true));
+
   }
+
+  void toggleFavourite(NoteModel note){
+    note.isFavourite= !note.isFavourite;
+    note.save();
+    getAllNote();
+  }
+
 }
